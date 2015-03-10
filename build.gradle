@@ -1,0 +1,43 @@
+apply plugin: 'idea'
+
+idea {
+    project {
+        languageLevel = '1.8'
+    }
+}
+
+subprojects {
+   apply plugin: 'java'
+   repositories {
+       mavenCentral()
+   }
+}
+
+project(":${mainprojectname}") {
+  runModArgs = "-conf ${mainprojectname}/conf.json"
+}
+
+//project(':app') {
+//   dependencies {
+//       compile project(':common')
+//   }
+//}
+
+task init() {
+    File target = new File(rootDir, "build")
+    if (!target.exists()) {
+      target.mkdirs()
+    }
+    target = new File(rootDir, "build")
+
+    rootProject.childProjects.each { name, value ->
+    File link = new File(rootDir, "${name}/build")
+    if (!link.exists() && target.exists()) {
+      ant.symlink(link: link.absolutePath, resource: target.absolutePath)
+    }
+  }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}

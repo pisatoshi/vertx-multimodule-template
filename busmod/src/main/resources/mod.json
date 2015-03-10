@@ -1,0 +1,9 @@
+{
+  "main":"com.mycompany.mymodule.vertx.BusmodExampleModule",
+
+  "description":"Access elasticsearch over event bus.",
+  "licenses": ["The Apache Software License Version 2.0"],
+  "author": "pisatoshi",
+
+  "auto-redeploy": true
+}
